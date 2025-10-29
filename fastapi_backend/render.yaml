@@ -10,6 +10,6 @@ services:
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: my_database # Replace with your Render Database name
+          name: my_database_cbqe # Replace with your Render Database name
           property: connectionString
       # Add any other environment variables needed
