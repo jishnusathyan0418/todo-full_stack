@@ -6,7 +6,8 @@ services:
     rootDir: fastapi_backend # Add this if your code is in a subdirectory
     buildCommand: "pip install -r requirements.txt"
     preDeployCommand: "alembic upgrade head" # <--- MIGRATION COMMAND HERE
-    startCommand: "uvicorn main:app --host 0.0.0.0 --port $PORT" # Adjust if your start command is different
+    # startCommand: "uvicorn main:app --host 0.0.0.0 --port $PORT" # Adjust if your start command is different
+    startCommand: "echo \"DATABASE_URL is: [$DATABASE_URL]\" && uvicorn main:app --host 0.0.0.0 --port $PORT"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
