@@ -1,0 +1,20 @@
+.todoInput{
+    padding: 5px;
+    border: 1px solid gray;
+    width: 194px;
+    height: 40px;
+    margin: 5px;
+}
+
+.todoRow{
+    display: flex;
+    flex-direction: row;
+    margin: 5px 20px;
+    align-items: center;
+}
+
+.deleteBtn {
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
