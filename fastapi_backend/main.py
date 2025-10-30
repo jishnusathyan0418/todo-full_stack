@@ -32,7 +32,7 @@ def get_settings():
 
 @app.get("/")
 def read_root(settings: config.Settings = Depends(get_settings)):
-    print(settings.DATABASE_NAME)
+    # print(settings.DATABASE_NAME)
     return "Hello world"
 
 
