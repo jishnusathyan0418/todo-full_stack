@@ -5,10 +5,23 @@ from fastapi.responses import PlainTextResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import os
-
 from routers import todos
+from database import engine, Base  # ← ADD THIS LINE
+import models 
 import config
+from contextlib import asynccontextmanager
+
+
 app = FastAPI()
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # This runs when the app starts
+    Base.metadata.create_all(bind=engine)
+    yield
+    # Code after yield runs when app shuts down (leave empty for now)
+
+app = FastAPI(lifespan=lifespan)
 app.include_router(todos.router)
 
 app.add_middleware(
