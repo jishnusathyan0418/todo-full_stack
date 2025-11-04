@@ -26,7 +26,8 @@ app.include_router(todos.router)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["http://localhost:3000",
+                   "https://todo-full-stack-six.vercel.app/"],
     allow_credentials = True,
     allow_methods = ["*"],
     allow_headers = ["*"]
