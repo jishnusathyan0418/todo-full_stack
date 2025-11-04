@@ -4,21 +4,11 @@ import { debounce } from 'lodash'
 import ToDo from './todo'
 
 
-
-
-
-
 export default function ToDoList() {
     const [todos, setTodos] = useState(null)
     const [mainInput, setMainInput] = useState('')
     const [filter, setFilter] = useState()
     const didFetchRef = useRef(false)
-
-    console.log("=== DEBUG INFO ===")
-    console.log("API URL from env:", process.env.NEXT_PUBLIC_API_URL)
-    console.log("Type:", typeof process.env.NEXT_PUBLIC_API_URL)
-    console.log("==================")
-
 
 // Fetching Data: Getting the Initial To-Do List
     useEffect(() => {
