@@ -6,13 +6,11 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import os
 from routers import todos
-from database import engine, Base  # ← ADD THIS LINE
+from database import engine, Base
 import models 
 import config
 from contextlib import asynccontextmanager
 
-
-app = FastAPI()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -24,15 +22,20 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 app.include_router(todos.router)
 
+# FIXED CORS CONFIGURATION - Use your correct frontend URL
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://todo-full-stack-ijvd0bftm-jishnusathyan0418s-projects.vercel.app", "https://localhost:3000"],
-    allow_credentials = True,
-    allow_methods = ["*"],
-    allow_headers = ["*"]
+    allow_origins=[
+        "https://todo-full-stack-dcit87ndm-jishnusathyan0418s-projects.vercel.app",  # ✅ CORRECTED
+        "http://localhost:3000",  # Local development
+        "http://localhost:3001",  # Alternative local port
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
 )
 
-# global http exception handler, to handle errors   (not mandatory)
+# global http exception handler, to handle errors
 @app.exception_handler(StarletteHTTPException)
 async def http_exception_handler(request, exc):
     print(f"{repr(exc)}")
@@ -45,13 +48,12 @@ def get_settings():
 
 @app.get("/")
 def read_root(settings: config.Settings = Depends(get_settings)):
-    # print(settings.DATABASE_NAME)
     return "Hello world"
 
 
 @app.get("/items/{item_id}")
 def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id":item_id, "q": q}
+    return {"item_id": item_id, "q": q}
 
 
 if __name__ == "__main__":
